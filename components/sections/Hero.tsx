@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { gsap } from 'gsap'
 import ScrollAnimation from '@/components/animations/ScrollAnimation'
+import { assetPath } from '@/lib/utils'
 
 interface HeroProps {
   title: string
@@ -96,7 +97,7 @@ export default function Hero({
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url(${backgroundImage})`,
+          backgroundImage: `url(${assetPath(backgroundImage)})`,
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />

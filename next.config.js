@@ -7,6 +7,11 @@ const nextConfig = {
   basePath: '/SriAksharaSchool',
   trailingSlash: true,
   
+  // Set environment variable for basePath (used in components)
+  env: {
+    NEXT_PUBLIC_BASE_PATH: '/SriAksharaSchool',
+  },
+  
   images: {
     // Disable image optimization for static export
     unoptimized: true,

@@ -1,6 +1,7 @@
 import Hero from '@/components/sections/Hero'
 import ScrollAnimation from '@/components/animations/ScrollAnimation'
 import Image from 'next/image'
+import { assetPath } from '@/lib/utils'
 
 const galleryImages = [
   { src: '/images/gallery-1.png', alt: 'School Event', category: 'Events' },
