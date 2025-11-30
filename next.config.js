@@ -3,9 +3,9 @@ const nextConfig = {
   // Enable static export for GitHub Pages
   output: 'export',
   
-  // If deploying to a repository (not username.github.io), uncomment and set your repo name:
-  // basePath: '/SriAksharaSchool',
-  // trailingSlash: true,
+  // Required for GitHub Pages when repo name is not username.github.io
+  basePath: '/SriAksharaSchool',
+  trailingSlash: true,
   
   images: {
     // Disable image optimization for static export
