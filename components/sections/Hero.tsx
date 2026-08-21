@@ -1,159 +1,98 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import Link from 'next/link'
 import { gsap } from 'gsap'
-import ScrollAnimation from '@/components/animations/ScrollAnimation'
-import { assetPath } from '@/lib/utils'
+import Button from '@/components/ui/Button'
+import LaunchButton from '@/components/ui/LaunchButton'
+import Photo from '@/components/ui/Photo'
+import { images } from '@/lib/images'
 
-interface HeroProps {
-  title: string
-  subtitle?: string
-  description?: string
-  ctaText?: string
-  ctaLink?: string
-  backgroundImage?: string
-}
-
-export default function Hero({
-  title,
-  subtitle,
-  description,
-  ctaText,
-  ctaLink,
-  backgroundImage = '/images/hero-school.png',
-}: HeroProps) {
-  const heroRef = useRef<HTMLDivElement>(null)
-  const titleRef = useRef<HTMLHeadingElement>(null)
-  const subtitleRef = useRef<HTMLParagraphElement>(null)
-  const descRef = useRef<HTMLParagraphElement>(null)
-  const ctaRef = useRef<HTMLDivElement>(null)
+export default function Hero() {
+  const rootRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    if (typeof window === 'undefined') return
-    if (!heroRef.current || !titleRef.current) return
-
-    const tl = gsap.timeline()
-    
-    if (titleRef.current) {
-      tl.from(titleRef.current, {
+    if (!rootRef.current) return
+    const ctx = gsap.context(() => {
+      gsap.from('[data-hero-copy] > *', {
         opacity: 0,
-        y: 50,
-        duration: 1,
+        y: 28,
+        duration: 0.85,
+        stagger: 0.12,
         ease: 'power3.out',
       })
-    }
-    
-    if (subtitleRef.current) {
-      tl.from(
-        subtitleRef.current,
-        {
-          opacity: 0,
-          y: 30,
-          duration: 0.8,
-          ease: 'power3.out',
-        },
-        '-=0.5'
-      )
-    }
-    
-    if (descRef.current) {
-      tl.from(
-        descRef.current,
-        {
-          opacity: 0,
-          y: 30,
-          duration: 0.8,
-          ease: 'power3.out',
-        },
-        '-=0.5'
-      )
-    }
-    
-    if (ctaRef.current) {
-      tl.from(
-        ctaRef.current,
-        {
-          opacity: 0,
-          y: 20,
-          duration: 0.6,
-          ease: 'power3.out',
-        },
-        '-=0.4'
-      )
-    }
-
-    return () => {
-      tl.kill()
-    }
+      gsap.from('[data-hero-art]', {
+        opacity: 0,
+        x: 30,
+        duration: 1.1,
+        delay: 0.2,
+        ease: 'power3.out',
+      })
+    }, rootRef)
+    return () => ctx.revert()
   }, [])
 
   return (
-    <section
-      ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
-    >
-      {/* Background Image with Overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url(${assetPath(backgroundImage)})`,
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-        <h1
-          ref={titleRef}
-          className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 text-balance"
-        >
-          {title}
-        </h1>
-        {subtitle && (
-          <p
-            ref={subtitleRef}
-            className="text-2xl md:text-3xl lg:text-4xl font-light mb-6 text-primary-200"
-          >
-            {subtitle}
+    <section ref={rootRef} className="relative overflow-hidden pb-10 pt-8 lg:pb-20 lg:pt-12">
+      <div className="container-page grid items-center gap-12 lg:grid-cols-12">
+        <div data-hero-copy className="lg:col-span-6 xl:col-span-6">
+          <p className="eyebrow">A school for childhood, and for character</p>
+          <h1 className="mt-5 font-serif text-display text-ink">
+            Where children are known, challenged, and kindly held.
+          </h1>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-muted">
+            Sri Akshara is a warm academic community—rigorous in the classroom,
+            generous on the playground, and serious about the values your child
+            carries home.
           </p>
-        )}
-        {description && (
-          <p
-            ref={descRef}
-            className="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-gray-200"
-          >
-            {description}
-          </p>
-        )}
-        {ctaText && ctaLink && (
-          <div ref={ctaRef}>
-            <Link
-              href={ctaLink}
-              className="inline-block px-8 py-4 bg-primary-600 text-white rounded-full text-lg font-semibold hover:bg-primary-700 transition-all transform hover:scale-105 shadow-lg"
-            >
-              {ctaText}
-            </Link>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <LaunchButton />
+            <Button href="/admissions" variant="primary">
+              Start an application
+            </Button>
+            <Button href="/contact" variant="secondary">
+              Schedule a campus visit
+            </Button>
           </div>
-        )}
-      </div>
+          <dl className="mt-12 grid grid-cols-3 gap-6 border-t border-forest-100 pt-8 max-w-lg">
+            {[
+              { value: '1999', label: 'Founded' },
+              { value: '1 : 12', label: 'Teacher ratio' },
+              { value: 'Pre-K–12', label: 'Ages served' },
+            ].map((item) => (
+              <div key={item.label}>
+                <dt className="font-serif text-2xl text-forest-800">{item.value}</dt>
+                <dd className="mt-1 text-xs uppercase tracking-[0.16em] text-ink-soft">
+                  {item.label}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
-        <svg
-          className="w-6 h-6 text-white"
-          fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
+        <div data-hero-art className="relative lg:col-span-6">
+          <div className="relative mx-auto max-w-lg lg:max-w-none">
+            <Photo
+              src={images.heroCampus}
+              alt="Sri Akshara School campus buildings and lawns"
+              className="aspect-[4/5] sm:aspect-[5/6] lg:aspect-[4/5] shadow-soft"
+              priority
+            />
+            <div className="absolute -left-4 bottom-10 hidden w-44 overflow-hidden border-[6px] border-cream-100 shadow-lift sm:block lg:-left-10 lg:w-56">
+              <Photo
+                src={images.heroCourtyard}
+                alt="A quiet courtyard on campus"
+                className="aspect-[4/5]"
+              />
+            </div>
+            <div className="absolute right-4 top-6 rounded-full bg-cream-50/95 px-5 py-3 text-center shadow-soft sm:right-8">
+              <p className="font-serif text-2xl text-forest-800">25+</p>
+              <p className="text-[10px] uppercase tracking-[0.16em] text-ink-soft">
+                years of care
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )
 }
-

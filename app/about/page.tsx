@@ -1,105 +1,122 @@
-import Hero from '@/components/sections/Hero'
+import type { Metadata } from 'next'
 import SplitSection from '@/components/sections/SplitSection'
 import Cards from '@/components/sections/Cards'
 import CTA from '@/components/sections/CTA'
+import PageHeader from '@/components/sections/PageHeader'
+import SectionHeading from '@/components/ui/SectionHeading'
+import { images } from '@/lib/images'
+import type { IconName } from '@/components/ui/Icon'
+
+export const metadata: Metadata = {
+  title: 'About',
+  description:
+    'Sri Akshara School has educated children with warmth and academic seriousness since 1999. Meet our mission, values, and leadership.',
+}
+
+const values: { title: string; description: string; icon: IconName }[] = [
+  {
+    title: 'Excellence',
+    description: 'High standards, patiently taught. We ask children to do their best work, and we show them how.',
+    icon: 'spark',
+  },
+  {
+    title: 'Integrity',
+    description: 'Honesty in the classroom, the corridor, and the report. Trust is the first thing we owe a parent.',
+    icon: 'shield',
+  },
+  {
+    title: 'Wonder',
+    description: 'New ideas are welcome. We want children who still look up, and teachers who still look forward.',
+    icon: 'sun',
+  },
+  {
+    title: 'Belonging',
+    description: 'A school is a village. Students, parents, and teachers share the same work: raising good people.',
+    icon: 'users',
+  },
+]
 
 export default function About() {
-  const values = [
-    {
-      title: 'Excellence',
-      description:
-        'We strive for the highest standards in everything we do, from academics to character development.',
-      icon: '⭐',
-    },
-    {
-      title: 'Integrity',
-      description:
-        'We build trust through honesty, transparency, and ethical behavior in all our interactions.',
-      icon: '🤝',
-    },
-    {
-      title: 'Innovation',
-      description:
-        'We embrace new ideas and technologies to enhance learning and prepare students for the future.',
-      icon: '💡',
-    },
-    {
-      title: 'Community',
-      description:
-        'We foster a sense of belonging and collaboration among students, parents, and educators.',
-      icon: '🏘️',
-    },
-  ]
-
   return (
     <main>
-      <Hero
-        title="About Sri Akshara School"
-        subtitle="Excellence in Education Since 1999"
-        description="A legacy of nurturing young minds and shaping future leaders"
-        backgroundImage="/images/about-hero.png"
+      <PageHeader
+        eyebrow="About the school"
+        title="A quiet kind of ambition."
+        description="Sri Akshara has spent more than two decades proving that warmth and academic seriousness are not opposites. They are the point."
+        image={images.campus}
+        imageAlt="The Sri Akshara campus"
       />
 
       <SplitSection
-        image="/images/history.png"
+        image={images.history}
         imagePosition="left"
-        title="Our History"
-        content="Founded in 1999, Sri Akshara School began with a vision to provide world-class education that combines academic rigor with holistic development. Over the past two decades, we have grown from a small institution to a leading educational establishment, consistently producing graduates who excel in their chosen fields. Our commitment to excellence has earned us recognition and trust from parents and the community."
+        eyebrow="Since 1999"
+        title="We began with a handful of classrooms and a clear idea."
+        content="Founded in 1999, Sri Akshara School set out to offer an education that combined academic depth with the formation of character. We have grown, but we have not outgrown the habit of knowing each child. Families stay because the school still feels personal—and because the work in the classroom is real."
+        caption="The first buildings still sit at the heart of campus."
       />
 
-      <section id="mission" className="py-20 lg:py-32 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-12">
-              Our Mission & Vision
-            </h2>
-            <div className="grid md:grid-cols-2 gap-12">
-              <div className="bg-white p-8 rounded-2xl shadow-lg">
-                <h3 className="text-3xl font-bold text-primary-600 mb-4">
-                  Mission
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  To provide a transformative educational experience that
-                  empowers students to achieve academic excellence, develop
-                  critical thinking skills, and become responsible global
-                  citizens with strong moral values.
-                </p>
-              </div>
-              <div className="bg-white p-8 rounded-2xl shadow-lg">
-                <h3 className="text-3xl font-bold text-primary-600 mb-4">
-                  Vision
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  To be recognized as a premier educational institution that
-                  nurtures innovative thinkers, compassionate leaders, and
-                  lifelong learners who contribute meaningfully to society.
-                </p>
-              </div>
-            </div>
+      <section id="mission" className="bg-cream-50 py-16 lg:py-24">
+        <div className="container-page">
+          <SectionHeading
+            eyebrow="What we are for"
+            title="Mission & vision"
+            align="center"
+          />
+          <div className="mx-auto mt-14 grid max-w-5xl gap-6 md:grid-cols-2">
+            <article className="border border-forest-100 bg-cream-100 p-8 lg:p-10">
+              <p className="eyebrow">Mission</p>
+              <h3 className="mt-3 font-serif text-3xl">To educate with mind and manner.</h3>
+              <p className="mt-4 leading-relaxed text-ink-muted">
+                We give children a transformative education: academic excellence,
+                clear thinking, and the moral habits of people who can be trusted
+                with a community.
+              </p>
+            </article>
+            <article className="bg-forest-900 p-8 text-cream-100 lg:p-10">
+              <p className="eyebrow text-gold-300">Vision</p>
+              <h3 className="mt-3 font-serif text-3xl text-cream-50">
+                Thinkers who are also neighbours.
+              </h3>
+              <p className="mt-4 leading-relaxed text-cream-200/75">
+                To be known as a school that raises inventive minds, kind leaders,
+                and lifelong learners who leave a place better than they found it.
+              </p>
+            </article>
           </div>
         </div>
       </section>
 
-      <Cards cards={values} columns={4} className="bg-white" />
+      <section className="py-8">
+        <div className="container-page pt-8">
+          <SectionHeading
+            eyebrow="How we behave"
+            title="The values children meet every day."
+          />
+        </div>
+        <Cards cards={values} columns={4} />
+      </section>
 
       <SplitSection
-        image="/images/leadership.png"
+        image={images.leadership}
         imagePosition="right"
-        title="Our Leadership"
-        content="Our leadership team brings together decades of experience in education, administration, and child development. Led by visionary educators, we are committed to continuous improvement and innovation in teaching methodologies. Our principals, department heads, and coordinators work collaboratively to ensure every student receives the support and guidance they need to succeed."
-        ctaText="Meet Our Team"
+        eyebrow="Leadership"
+        title="Guided by people who still love classrooms."
+        content="Our leadership team brings decades of teaching, pastoral care, and school-building. Principals, heads of department, and coordinators work as one so that no child is lost between good intentions. We improve slowly, on purpose."
+        ctaText="Meet the people who lead"
         ctaLink="/about#leadership"
       />
 
+      <section id="leadership" className="sr-only" aria-hidden />
+
       <CTA
-        title="Join Our Community"
-        description="Discover how Sri Akshara School can help your child reach their full potential."
-        primaryCtaText="Schedule a Visit"
+        title="Come and sit with us."
+        description="A conversation, a tour, a morning in a classroom—this is how families decide. We will make time."
+        primaryCtaText="Schedule a visit"
         primaryCtaLink="/contact"
-        secondaryCtaText="View Admissions"
+        secondaryCtaText="View admissions"
         secondaryCtaLink="/admissions"
       />
     </main>
   )
 }
-

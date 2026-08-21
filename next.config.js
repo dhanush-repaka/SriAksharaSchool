@@ -1,21 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable static export for GitHub Pages
+  // Static export — works on sriakshara.com via GitHub Pages, Vercel, or any static host
   output: 'export',
-  
-  // Required for GitHub Pages when repo name is not username.github.io
-  basePath: '/SriAksharaSchool',
   trailingSlash: true,
-  
-  // Set environment variable for basePath (used in components)
+
+  // Served at the domain root (sriakshara.com). Learning Buddy lives on the subdomain.
   env: {
-    NEXT_PUBLIC_BASE_PATH: '/SriAksharaSchool',
+    NEXT_PUBLIC_BASE_PATH: '',
+    NEXT_PUBLIC_SITE_URL: 'https://sriakshara.com',
+    NEXT_PUBLIC_LEARNING_BUDDY_URL: 'https://learningbuddy.sriakshara.com',
   },
-  
+
   images: {
-    // Disable image optimization for static export
     unoptimized: true,
-    domains: ['localhost', 'your-wordpress-site.com'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -26,16 +23,7 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['gsap', 'framer-motion'],
   },
-  // Add these to help with compilation
-  typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // ignoreBuildErrors: true,
-  },
-  // Reduce initial compilation time
   swcMinify: true,
 }
 
 module.exports = nextConfig
-

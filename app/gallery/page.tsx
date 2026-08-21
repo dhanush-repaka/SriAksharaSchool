@@ -1,124 +1,100 @@
-import Hero from '@/components/sections/Hero'
-import ScrollAnimation from '@/components/animations/ScrollAnimation'
+'use client'
+
+import { useMemo, useState } from 'react'
 import Image from 'next/image'
-import { assetPath } from '@/lib/utils'
+import PageHeader from '@/components/sections/PageHeader'
+import ScrollAnimation from '@/components/animations/ScrollAnimation'
+import Icon from '@/components/ui/Icon'
+import { images } from '@/lib/images'
 
-const galleryImages = [
-  { src: '/images/gallery-1.png', alt: 'School Event', category: 'Events' },
-  { src: '/images/gallery-2.png', alt: 'Classroom', category: 'Academics' },
-  { src: '/images/gallery-3.png', alt: 'Sports Day', category: 'Sports' },
-  { src: '/images/gallery-4.png', alt: 'Art Exhibition', category: 'Arts' },
-  { src: '/images/gallery-5.png', alt: 'Science Fair', category: 'Academics' },
-  { src: '/images/gallery-6.png', alt: 'Graduation', category: 'Events' },
-  { src: '/images/gallery-7.png', alt: 'Music Concert', category: 'Arts' },
-  { src: '/images/gallery-8.png', alt: 'Basketball', category: 'Sports' },
-  { src: '/images/gallery-9.png', alt: 'Library', category: 'Facilities' },
-  { src: '/images/gallery-10.png', alt: 'Field Trip', category: 'Events' },
-  { src: '/images/gallery-11.png', alt: 'Drama Performance', category: 'Arts' },
-  { src: '/images/gallery-12.png', alt: 'Campus', category: 'Facilities' },
-]
-
-const categories = ['All', 'Events', 'Academics', 'Sports', 'Arts', 'Facilities']
+const categories = ['All', 'Events', 'Academics', 'Sports', 'Arts', 'Facilities'] as const
 
 export default function Gallery() {
+  const [active, setActive] = useState<(typeof categories)[number]>('All')
+
+  const visible = useMemo(
+    () =>
+      active === 'All'
+        ? images.gallery
+        : images.gallery.filter((item) => item.category === active),
+    [active]
+  )
+
   return (
     <main>
-      <Hero
-        title="Gallery"
-        subtitle="Life at Sri Akshara"
-        description="Capturing moments of learning, growth, and celebration"
-        backgroundImage="/images/gallery-hero.png"
+      <PageHeader
+        eyebrow="Gallery"
+        title="The school, as it looks on an ordinary day."
+        description="Assemblies, laboratories, matches, and quiet corners. These are not staged campaigns—they are the life we keep."
+        image={images.studentLife}
+        imageAlt="Students together on campus"
       />
 
-      <section className="py-20 lg:py-32 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Photo Gallery
-            </h2>
-            <p className="text-lg text-gray-600">
-              Explore our vibrant school community through these captured moments
-            </p>
-          </div>
-
-          {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+      <section className="py-16 lg:py-24">
+        <div className="container-page">
+          <div className="flex flex-wrap justify-center gap-2 mb-12">
             {categories.map((category) => (
               <button
                 key={category}
-                className="px-6 py-2 rounded-full bg-gray-100 text-gray-700 font-medium hover:bg-primary-600 hover:text-white transition-colors"
+                type="button"
+                onClick={() => setActive(category)}
+                className={`rounded-full px-5 py-2 text-sm transition-colors ${
+                  active === category
+                    ? 'bg-forest-800 text-cream-50'
+                    : 'border border-forest-100 text-ink-muted hover:border-forest-400'
+                }`}
               >
                 {category}
               </button>
             ))}
           </div>
 
-          {/* Gallery Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {galleryImages.map((image, index) => (
-              <ScrollAnimation
-                key={index}
-                animation="fadeUp"
-                delay={index * 0.05}
-              >
-                <div className="relative aspect-square rounded-2xl overflow-hidden group cursor-pointer shadow-lg hover:shadow-xl transition-shadow">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform z-20 opacity-0 group-hover:opacity-100">
-                    <p className="font-semibold">{image.alt}</p>
-                    <p className="text-sm text-gray-200">{image.category}</p>
-                  </div>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {visible.map((image, index) => (
+              <ScrollAnimation key={`${image.src}-${active}`} animation="fadeUp" delay={index * 0.04}>
+                <figure className="group relative aspect-[4/5] overflow-hidden bg-forest-100">
                   <Image
                     src={image.src}
                     alt={image.alt}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                </div>
+                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/80 to-transparent p-5 text-cream-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <p className="font-serif text-lg">{image.alt}</p>
+                    <p className="text-xs uppercase tracking-[0.16em] text-gold-300">{image.category}</p>
+                  </figcaption>
+                </figure>
               </ScrollAnimation>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-20 lg:py-32 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Video Gallery
-            </h2>
-            <p className="text-lg text-gray-600 mb-12">
-              Watch our school in action through these videos
-            </p>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="aspect-video bg-gray-200 rounded-2xl flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg
-                      className="w-8 h-8 text-white ml-1"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
+      <section className="bg-cream-50 py-16 lg:py-24">
+        <div className="container-page">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="eyebrow">Moving pictures</p>
+            <h2 className="mt-4 font-serif text-display-sm">A walk through, and a night to remember.</h2>
+            <div className="gold-rule mx-auto mt-6 mb-12" />
+            <div className="grid gap-6 md:grid-cols-2">
+              {[
+                { title: 'Campus morning', note: 'A quiet tour of rooms and lawns' },
+                { title: 'Annual day', note: 'Music, theatre, and proud families' },
+              ].map((video) => (
+                <div
+                  key={video.title}
+                  className="flex aspect-video items-center justify-center bg-forest-900 text-cream-100"
+                >
+                  <div className="text-center">
+                    <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-gold-300/50 text-gold-300">
+                      <Icon name="play" className="h-5 w-5 ml-0.5" />
+                    </div>
+                    <p className="font-serif text-2xl">{video.title}</p>
+                    <p className="mt-1 text-sm text-cream-200/70">{video.note}</p>
                   </div>
-                  <p className="text-gray-600">Campus Tour Video</p>
                 </div>
-              </div>
-              <div className="aspect-video bg-gray-200 rounded-2xl flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg
-                      className="w-8 h-8 text-white ml-1"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                  <p className="text-gray-600">Annual Day Celebration</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -126,4 +102,3 @@ export default function Gallery() {
     </main>
   )
 }
-

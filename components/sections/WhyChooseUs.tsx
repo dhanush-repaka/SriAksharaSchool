@@ -1,152 +1,74 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ScrollAnimation from '@/components/animations/ScrollAnimation'
+import Icon from '@/components/ui/Icon'
+import type { IconName } from '@/components/ui/Icon'
+import SectionHeading from '@/components/ui/SectionHeading'
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger)
-}
-
-const features = [
+const features: { title: string; description: string; icon: IconName }[] = [
   {
-    title: 'Academic Excellence',
+    title: 'Academic depth, without the rush',
     description:
-      'Rigorous curriculum designed to challenge and inspire students to reach their full potential.',
-    icon: '🎓',
+      'A thoughtful curriculum that builds mastery, curiosity, and the confidence to ask better questions.',
+    icon: 'book',
   },
   {
-    title: 'Holistic Development',
+    title: 'The whole child, every day',
     description:
-      'Focus on intellectual, emotional, physical, and social growth of every student.',
-    icon: '🌟',
+      'Music, sport, service, and quiet time sit beside mathematics. Childhood is not an extra-curricular.',
+    icon: 'leaf',
   },
   {
-    title: 'Experienced Faculty',
+    title: 'Teachers who stay',
     description:
-      'Dedicated teachers with years of experience and passion for education.',
-    icon: '👨‍🏫',
+      'Experienced faculty, small groups, and the kind of attention a parent notices by the first term.',
+    icon: 'users',
   },
   {
-    title: 'Modern Facilities',
+    title: 'A campus built for growing',
     description:
-      'State-of-the-art infrastructure supporting innovative learning experiences.',
-    icon: '🏫',
+      'Laboratories, libraries, playing fields, and studios designed so children can try, fail, and try again.',
+    icon: 'building',
   },
   {
-    title: 'Global Perspective',
+    title: 'A wider world in view',
     description:
-      'International programs and partnerships preparing students for a globalized world.',
-    icon: '🌍',
+      'Languages, exchange of ideas, and a civic sense that reaches beyond the school gate.',
+    icon: 'compass',
   },
   {
-    title: 'Strong Community',
+    title: 'Parents as partners',
     description:
-      'A supportive network of students, parents, and educators working together.',
-    icon: '🤝',
+      'Clear communication, an open door, and a community that treats families as part of the work.',
+    icon: 'heart',
   },
 ]
 
 export default function WhyChooseUs() {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const stickyRef = useRef<HTMLDivElement>(null)
-  const contentRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    if (!sectionRef.current || !stickyRef.current || !contentRef.current) return
-
-    const section = sectionRef.current
-    const sticky = stickyRef.current
-    const content = contentRef.current
-
-    const triggers: ScrollTrigger[] = []
-
-    // Sticky pin animation
-    const stickyTrigger = ScrollTrigger.create({
-      trigger: section,
-      start: 'top top',
-      end: '+=300%',
-      pin: sticky,
-      scrub: 1,
-    })
-    triggers.push(stickyTrigger)
-
-    // Card animations
-    const cards = content.querySelectorAll('.feature-card')
-    cards.forEach((card) => {
-      const cardTrigger = ScrollTrigger.create({
-        trigger: card as Element,
-        start: 'top 80%',
-        end: 'top 50%',
-        scrub: 1,
-        animation: gsap.fromTo(
-          card,
-          {
-            opacity: 0,
-            y: 50,
-          },
-          {
-            opacity: 1,
-            y: 0,
-          }
-        ),
-      })
-      triggers.push(cardTrigger)
-    })
-
-    return () => {
-      triggers.forEach((trigger) => {
-        if (trigger) {
-          trigger.kill()
-        }
-      })
-    }
-  }, [])
-
   return (
-    <section ref={sectionRef} className="relative py-20 lg:py-32 bg-gray-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Sticky Title Section */}
-          <div ref={stickyRef} className="lg:sticky lg:top-24 h-fit">
-            <ScrollAnimation animation="fadeUp">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-                Why Choose
-                <br />
-                <span className="text-primary-600">Sri Akshara?</span>
-              </h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                We are committed to providing an exceptional educational
-                experience that prepares students for success in an ever-changing
-                world.
-              </p>
-            </ScrollAnimation>
+    <section className="bg-cream-50 py-16 lg:py-24">
+      <div className="container-page">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-4 lg:sticky lg:top-28 h-fit">
+            <SectionHeading
+              eyebrow="Why families choose us"
+              title="A school that feels like a promise kept."
+              description="Parents tell us they came for the academics and stayed because their child was seen—kindly, consistently, and with high expectation."
+            />
           </div>
-
-          {/* Scrollable Content */}
-          <div ref={contentRef} className="space-y-8">
+          <div className="lg:col-span-8 grid gap-5 sm:grid-cols-2">
             {features.map((feature, index) => (
-              <ScrollAnimation
-                key={index}
-                animation="fadeUp"
-                delay={index * 0.1}
-                className="feature-card"
-              >
-                <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-                  <div className="flex items-start space-x-4">
-                    <div className="text-4xl flex-shrink-0">{feature.icon}</div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                        {feature.title}
-                      </h3>
-                      <p className="text-gray-600 leading-relaxed">
-                        {feature.description}
-                      </p>
-                    </div>
+              <ScrollAnimation key={feature.title} animation="fadeUp" delay={index * 0.06}>
+                <article className="h-full border border-forest-100 bg-cream-100/80 p-7 transition-shadow hover:shadow-soft">
+                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-full border border-gold-300/70 text-forest-700">
+                    <Icon name={feature.icon} className="h-5 w-5" />
                   </div>
-                </div>
+                  <p className="text-[11px] uppercase tracking-[0.18em] text-gold-600">
+                    {String(index + 1).padStart(2, '0')}
+                  </p>
+                  <h3 className="mt-2 font-serif text-2xl">{feature.title}</h3>
+                  <p className="mt-3 text-ink-muted leading-relaxed">{feature.description}</p>
+                </article>
               </ScrollAnimation>
             ))}
           </div>
@@ -155,4 +77,3 @@ export default function WhyChooseUs() {
     </section>
   )
 }
-

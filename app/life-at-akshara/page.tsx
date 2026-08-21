@@ -1,169 +1,158 @@
-import Hero from '@/components/sections/Hero'
+import type { Metadata } from 'next'
 import SplitSection from '@/components/sections/SplitSection'
 import Cards from '@/components/sections/Cards'
 import CTA from '@/components/sections/CTA'
+import PageHeader from '@/components/sections/PageHeader'
+import SectionHeading from '@/components/ui/SectionHeading'
+import { images } from '@/lib/images'
+import type { IconName } from '@/components/ui/Icon'
+
+export const metadata: Metadata = {
+  title: 'Life at Akshara',
+  description:
+    'Sport, arts, clubs, and pastoral care. A school day that still belongs to childhood.',
+}
+
+const activities: {
+  title: string
+  description: string
+  image: string
+  icon: IconName
+}[] = [
+  {
+    title: 'Sport',
+    description: 'Teams for those who compete, and a place on the field for everyone else. Fitness is a habit, not a slogan.',
+    image: images.sports,
+    icon: 'trophy',
+  },
+  {
+    title: 'Arts & culture',
+    description: 'Music, dance, drama, and the studio. Performances that families actually look forward to.',
+    image: images.arts,
+    icon: 'palette',
+  },
+  {
+    title: 'Clubs',
+    description: 'Debate, robotics, gardens, and service. Children choose, commit, and discover a second home in school.',
+    image: images.clubs,
+    icon: 'users',
+  },
+  {
+    title: 'Service',
+    description: 'Work beyond the gate. We teach that a good education includes the people it can help.',
+    image: images.community,
+    icon: 'heart',
+  },
+]
+
+const events: { title: string; description: string; icon: IconName }[] = [
+  {
+    title: 'Annual Day',
+    description: 'An evening of music, theatre, and the year’s work, shared with the people who made it possible.',
+    icon: 'music',
+  },
+  {
+    title: 'Science Fair',
+    description: 'Questions made visible. Children present what they wondered about, and what they found.',
+    icon: 'flask',
+  },
+  {
+    title: 'Sports Day',
+    description: 'Races, cheers, and the long afternoon when the whole school is one colour.',
+    icon: 'trophy',
+  },
+  {
+    title: 'Cultural Fest',
+    description: 'Food, dance, and the many homes our families come from—celebrated under one roof.',
+    icon: 'sun',
+  },
+]
 
 export default function LifeAtAkshara() {
-  const activities = [
-    {
-      title: 'Sports & Athletics',
-      description:
-        'Competitive sports teams, intramural leagues, and physical fitness programs for all skill levels.',
-      image: '/images/sports-activities.png',
-      icon: '⚽',
-    },
-    {
-      title: 'Arts & Culture',
-      description:
-        'Music, dance, drama, and visual arts programs with regular performances and exhibitions.',
-      image: '/images/arts-activities.png',
-      icon: '🎭',
-    },
-    {
-      title: 'Clubs & Societies',
-      description:
-        'Diverse clubs including debate, robotics, environmental, and community service organizations.',
-      image: '/images/clubs.png',
-      icon: '🤝',
-    },
-    {
-      title: 'Community Service',
-      description:
-        'Opportunities to give back through volunteer programs and social impact initiatives.',
-      image: '/images/community-service.png',
-      icon: '❤️',
-    },
-  ]
-
-  const events = [
-    {
-      title: 'Annual Day',
-      description:
-        'A grand celebration showcasing student achievements, performances, and school spirit.',
-      icon: '🎉',
-    },
-    {
-      title: 'Science Fair',
-      description:
-        'Students present innovative projects and experiments demonstrating scientific inquiry.',
-      icon: '🔬',
-    },
-    {
-      title: 'Sports Day',
-      description:
-        'Competitive athletic events bringing together students, parents, and teachers.',
-      icon: '🏃',
-    },
-    {
-      title: 'Cultural Fest',
-      description:
-        'A vibrant celebration of diversity through music, dance, food, and traditions.',
-      icon: '🎪',
-    },
-  ]
-
   return (
     <main>
-      <Hero
-        title="Life at Akshara"
-        subtitle="Beyond the Classroom"
-        description="A vibrant community where students learn, grow, and create lasting memories"
-        backgroundImage="/images/life-hero.png"
+      <PageHeader
+        eyebrow="Life at Akshara"
+        title="The hours after the bell still belong to childhood."
+        description="Friends, fields, rehearsals, and the small rituals that make a school feel like a place one is sorry to leave."
+        image={images.studentLife}
+        imageAlt="Students together at Sri Akshara"
       />
 
-      <section className="py-20 lg:py-32 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              A Day in the Life
-            </h2>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Every day at Sri Akshara is filled with learning opportunities,
-              friendships, and experiences that shape character and build
-              memories. From morning assemblies to after-school activities, our
-              students engage in a rich, balanced routine.
-            </p>
-          </div>
+      <section className="py-16 lg:py-20">
+        <div className="container-page">
+          <SectionHeading
+            eyebrow="An ordinary Tuesday"
+            title="Assembly, work, lunch, play—and someone who knows your name."
+            description="The day is paced so that children can think, move, and rest. Morning assembly sets a tone. Classes ask for attention. Afternoons make room for the rest of a person."
+            align="center"
+          />
         </div>
       </section>
 
-      <Cards cards={activities} columns={2} className="bg-gray-50" />
+      <Cards cards={activities} columns={2} className="bg-cream-50 pt-0" />
 
       <SplitSection
-        image="/images/student-life.png"
+        image={images.clubs}
         imagePosition="left"
-        title="Student Life"
-        content="Our students enjoy a well-rounded experience that balances academics with extracurricular activities. Morning assemblies set a positive tone for the day, followed by engaging classes, lunch breaks with friends, and afternoon activities. We emphasize time management, responsibility, and the importance of both work and play."
+        eyebrow="Student life"
+        title="Work and play, kept in proportion."
+        content="We teach time, not merely timetable. Children learn to finish work, keep a promise to a team, and still have an hour left for a book or a friend. That balance is the culture, not a poster."
       />
 
-      <section className="py-20 lg:py-32 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-12">
-            Annual Events & Celebrations
-          </h2>
-          <Cards cards={events} columns={4} />
+      <section className="py-8">
+        <div className="container-page pt-8">
+          <SectionHeading
+            eyebrow="The year, marked"
+            title="Days the whole school looks toward."
+          />
         </div>
+        <Cards cards={events} columns={4} />
       </section>
 
-      <section className="py-20 lg:py-32 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-12">
-              Student Support Services
-            </h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-white p-8 rounded-2xl shadow-lg">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Counseling Services
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Professional counselors provide academic guidance, career
-                  counseling, and emotional support to help students navigate
-                  challenges and make informed decisions.
-                </p>
-              </div>
-              <div className="bg-white p-8 rounded-2xl shadow-lg">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Learning Support
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Specialized programs and resources for students who need
-                  additional academic support, ensuring every student can
-                  succeed.
-                </p>
-              </div>
-              <div className="bg-white p-8 rounded-2xl shadow-lg">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Health & Wellness
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  On-campus medical facilities, health education programs, and
-                  wellness initiatives promote physical and mental well-being.
-                </p>
-              </div>
-              <div className="bg-white p-8 rounded-2xl shadow-lg">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Parent Engagement
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Regular parent-teacher meetings, workshops, and events foster
-                  strong partnerships between home and school.
-                </p>
-              </div>
-            </div>
+      <section className="bg-cream-50 py-16 lg:py-24">
+        <div className="container-page">
+          <SectionHeading
+            eyebrow="When a child needs more"
+            title="Support that does not wait for a crisis."
+            align="center"
+          />
+          <div className="mx-auto mt-14 grid max-w-5xl gap-5 md:grid-cols-2">
+            {[
+              {
+                title: 'Counselling',
+                body: 'Academic guidance, career conversations, and a quiet room when the week is heavy. Our counsellors work with families, not around them.',
+              },
+              {
+                title: 'Learning support',
+                body: 'Extra help without stigma. If a child needs a different path through a subject, we build one—and we tell you how it is going.',
+              },
+              {
+                title: 'Health',
+                body: 'A nurse on campus, health education that is age-honest, and a culture that treats sleep and food as part of scholarship.',
+              },
+              {
+                title: 'Parents',
+                body: 'Meetings that are conversations. Workshops when they help. An open invitation to walk the campus you already trust.',
+              },
+            ].map((item) => (
+              <article key={item.title} className="border border-forest-100 bg-cream-100 p-8">
+                <h3 className="font-serif text-2xl">{item.title}</h3>
+                <p className="mt-3 leading-relaxed text-ink-muted">{item.body}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
       <CTA
-        title="Be Part of Our Community"
-        description="Join us and experience the vibrant life at Sri Akshara School."
-        primaryCtaText="Apply Now"
+        title="Come and feel the day."
+        description="Visit during school hours. Hear the noise that is work, and the quiet that is care."
+        primaryCtaText="Apply now"
         primaryCtaLink="/admissions"
-        secondaryCtaText="Contact Us"
+        secondaryCtaText="Write to us"
         secondaryCtaLink="/contact"
       />
     </main>
   )
 }
-

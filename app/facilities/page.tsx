@@ -1,143 +1,175 @@
-import Hero from '@/components/sections/Hero'
+import type { Metadata } from 'next'
 import Cards from '@/components/sections/Cards'
 import SplitSection from '@/components/sections/SplitSection'
 import CTA from '@/components/sections/CTA'
+import PageHeader from '@/components/sections/PageHeader'
+import SectionHeading from '@/components/ui/SectionHeading'
+import Icon from '@/components/ui/Icon'
+import type { IconName } from '@/components/ui/Icon'
+import { images } from '@/lib/images'
+
+export const metadata: Metadata = {
+  title: 'Campus & facilities',
+  description:
+    'Laboratories, library, fields, and a campus designed for safety and calm. Tour Sri Akshara School.',
+}
+
+const facilities: {
+  title: string
+  description: string
+  image: string
+  icon: IconName
+}[] = [
+  {
+    title: 'Classrooms',
+    description: 'Light, air, and boards that work. Rooms sized so a teacher can reach every child.',
+    image: images.classroom,
+    icon: 'building',
+  },
+  {
+    title: 'Science laboratories',
+    description: 'Physics, chemistry, and biology labs kept ready for real experiment, not demonstration only.',
+    image: images.science,
+    icon: 'flask',
+  },
+  {
+    title: 'Technology studios',
+    description: 'Machines and software in the service of making, coding, and careful research.',
+    image: images.computer,
+    icon: 'compass',
+  },
+  {
+    title: 'Library',
+    description: 'Shelves, silence, and seats by the window. A place to get lost on purpose.',
+    image: images.library,
+    icon: 'book',
+  },
+  {
+    title: 'Playing fields',
+    description: 'Courts, a field, and indoor space so sport is a daily habit, not a rare treat.',
+    image: images.sports,
+    icon: 'trophy',
+  },
+  {
+    title: 'Arts & music',
+    description: 'Studios and a music room with instruments that are actually played.',
+    image: images.arts,
+    icon: 'palette',
+  },
+  {
+    title: 'Dining',
+    description: 'A clean kitchen and a hall where children eat well and sit with friends.',
+    image: images.cafeteria,
+    icon: 'heart',
+  },
+  {
+    title: 'Auditorium',
+    description: 'A hall for assembly, theatre, and the kind of evening parents remember.',
+    image: images.auditorium,
+    icon: 'music',
+  },
+]
 
 export default function Facilities() {
-  const facilities = [
-    {
-      title: 'Modern Classrooms',
-      description:
-        'Spacious, well-lit classrooms equipped with smart boards, projectors, and comfortable seating designed for optimal learning.',
-      image: '/images/classrooms.png',
-      icon: '🏫',
-    },
-    {
-      title: 'Science Laboratories',
-      description:
-        'Fully equipped physics, chemistry, and biology labs with modern equipment for hands-on experiments and research.',
-      image: '/images/labs.png',
-      icon: '🔬',
-    },
-    {
-      title: 'Computer Labs',
-      description:
-        'State-of-the-art computer labs with high-speed internet and the latest software for technology education.',
-      image: '/images/computer-lab.png',
-      icon: '💻',
-    },
-    {
-      title: 'Library & Media Center',
-      description:
-        'Extensive collection of books, digital resources, and quiet study spaces for research and reading.',
-      image: '/images/library.png',
-      icon: '📚',
-    },
-    {
-      title: 'Sports Facilities',
-      description:
-        'Large playgrounds, basketball courts, football field, and indoor sports facilities for physical education.',
-      image: '/images/sports.png',
-      icon: '⚽',
-    },
-    {
-      title: 'Arts & Music Rooms',
-      description:
-        'Dedicated spaces for visual arts, music, dance, and drama with professional equipment and instruments.',
-      image: '/images/arts.png',
-      icon: '🎨',
-    },
-    {
-      title: 'Cafeteria',
-      description:
-        'Clean, spacious cafeteria serving nutritious meals prepared in our modern kitchen facilities.',
-      image: '/images/cafeteria.png',
-      icon: '🍽️',
-    },
-    {
-      title: 'Auditorium',
-      description:
-        'Large auditorium with advanced audio-visual systems for assemblies, performances, and events.',
-      image: '/images/auditorium.png',
-      icon: '🎭',
-    },
-  ]
-
   return (
     <main>
-      <Hero
-        title="Our Facilities"
-        subtitle="World-Class Infrastructure"
-        description="State-of-the-art facilities designed to enhance learning and support student growth"
-        backgroundImage="/images/facilities-hero.png"
+      <PageHeader
+        eyebrow="Campus"
+        title="A place built for children, kept for parents’ peace of mind."
+        description="Fifteen acres of classrooms, gardens, and playing fields—maintained as if your child will notice the difference. They do."
+        image={images.campus}
+        imageAlt="Academic buildings at Sri Akshara"
       />
 
-      <section className="py-20 lg:py-32 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Excellence in Every Space
-            </h2>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Our campus features modern facilities that support diverse learning
-              experiences. From cutting-edge laboratories to creative arts
-              spaces, every facility is designed with student success in mind.
-            </p>
-          </div>
-          <Cards cards={facilities} columns={4} />
+      <section className="py-16 lg:py-20">
+        <div className="container-page">
+          <SectionHeading
+            eyebrow="Every corner has a purpose"
+            title="Rooms, fields, and quiet."
+            description="Infrastructure is only as good as the life inside it. Ours is designed for work, play, and the unhurried hour in between."
+            align="center"
+          />
         </div>
+        <Cards cards={facilities} columns={4} className="pt-10" />
       </section>
 
       <SplitSection
-        image="/images/campus-aerial.png"
+        image={images.heroCampus}
         imagePosition="left"
-        title="Our Campus"
-        content="Spread across 15 acres, our campus provides a safe, inspiring environment for learning and growth. The thoughtfully designed spaces include academic buildings, recreational areas, and green spaces that promote well-being. Our facilities are regularly maintained and upgraded to meet the evolving needs of modern education."
+        eyebrow="The grounds"
+        title="Fifteen acres, one community."
+        content="Academic wings, trees, and playing fields sit in an easy relationship. We maintain and renew the campus so that it remains safe, beautiful, and equal to a modern education."
+        caption="The main lawn, looking toward the academic block."
       />
 
-      <section className="py-20 lg:py-32 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-12">
-              Safety & Security
-            </h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-white p-8 rounded-2xl shadow-lg">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Security Measures
-                </h3>
-                <ul className="space-y-2 text-gray-600">
-                  <li>• 24/7 security personnel</li>
-                  <li>• CCTV surveillance system</li>
-                  <li>• Controlled access points</li>
-                  <li>• Emergency response protocols</li>
-                </ul>
+      <section className="bg-cream-50 py-16 lg:py-24">
+        <div className="container-page">
+          <SectionHeading
+            eyebrow="What parents ask first"
+            title="Safety and wellbeing."
+            align="center"
+          />
+          <div className="mx-auto mt-14 grid max-w-5xl gap-6 md:grid-cols-2">
+            <article className="border border-forest-100 bg-cream-100 p-8">
+              <div className="mb-4 text-forest-700">
+                <Icon name="shield" className="h-6 w-6" />
               </div>
-              <div className="bg-white p-8 rounded-2xl shadow-lg">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Health & Wellness
-                </h3>
-                <ul className="space-y-2 text-gray-600">
-                  <li>• On-campus medical facility</li>
-                  <li>• Trained nursing staff</li>
-                  <li>• Regular health check-ups</li>
-                  <li>• Clean and hygienic environment</li>
-                </ul>
+              <h3 className="font-serif text-3xl">Security</h3>
+              <ul className="mt-5 space-y-3 text-ink-muted">
+                <li className="flex gap-3">
+                  <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-gold-500" />
+                  Staffed gates and known faces, day and evening
+                </li>
+                <li className="flex gap-3">
+                  <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-gold-500" />
+                  Campus-wide cameras, reviewed with care
+                </li>
+                <li className="flex gap-3">
+                  <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-gold-500" />
+                  Controlled visitor entry
+                </li>
+                <li className="flex gap-3">
+                  <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-gold-500" />
+                  Practised emergency drills, not paper ones
+                </li>
+              </ul>
+            </article>
+            <article className="bg-forest-900 p-8 text-cream-100">
+              <div className="mb-4 text-gold-300">
+                <Icon name="heart" className="h-6 w-6" />
               </div>
-            </div>
+              <h3 className="font-serif text-3xl text-cream-50">Health</h3>
+              <ul className="mt-5 space-y-3 text-cream-200/80">
+                <li className="flex gap-3">
+                  <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-gold-300" />
+                  An infirmary on campus
+                </li>
+                <li className="flex gap-3">
+                  <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-gold-300" />
+                  Trained nursing staff during school hours
+                </li>
+                <li className="flex gap-3">
+                  <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-gold-300" />
+                  Regular health check-ins
+                </li>
+                <li className="flex gap-3">
+                  <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-gold-300" />
+                  Clean kitchens, water, and washrooms
+                </li>
+              </ul>
+            </article>
           </div>
         </div>
       </section>
 
       <CTA
-        title="Experience Our Facilities"
-        description="Schedule a campus tour to see our facilities in person."
-        primaryCtaText="Book a Tour"
+        title="Walk it with us."
+        description="A tour is the honest way to judge a campus. We keep mornings free for visiting families."
+        primaryCtaText="Book a tour"
         primaryCtaLink="/contact"
-        secondaryCtaText="View Gallery"
+        secondaryCtaText="See the gallery"
         secondaryCtaLink="/gallery"
       />
     </main>
   )
 }
-
