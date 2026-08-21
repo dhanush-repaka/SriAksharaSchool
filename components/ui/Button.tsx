@@ -16,22 +16,40 @@ const styles: Record<Variant, string> = {
     'bg-cream-50 text-forest-800 hover:bg-white shadow-soft',
 }
 
+const baseClass =
+  'inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300'
+
 export default function Button({
   href,
   children,
   variant = 'primary',
   className = '',
+  external = false,
 }: {
   href: string
   children: ReactNode
   variant?: Variant
   className?: string
+  external?: boolean
 }) {
+  const isExternal = external || href.startsWith('http')
+  const classNames = `${baseClass} ${styles[variant]} ${className}`
+
+  if (isExternal) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={classNames}
+      >
+        {children}
+      </a>
+    )
+  }
+
   return (
-    <Link
-      href={href}
-      className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ${styles[variant]} ${className}`}
-    >
+    <Link href={href} className={classNames}>
       {children}
     </Link>
   )

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Logo from '@/components/ui/Logo'
 import Button from '@/components/ui/Button'
+import LaunchButton from '@/components/ui/LaunchButton'
 
 const navItems = [
   { name: 'About', href: '/about' },
@@ -72,12 +73,10 @@ export default function Navigation() {
           </div>
 
           <div className="hidden lg:flex items-center gap-3">
-            <Button href="/contact" variant="secondary" className="px-5 py-2.5">
-              Visit campus
-            </Button>
-            <Button href="/admissions" variant="primary" className="px-5 py-2.5">
+            <Button href="/admissions" variant="secondary" className="px-5 py-2.5">
               Apply
             </Button>
+            <LaunchButton className="px-5 py-2.5" />
           </div>
 
           <button
@@ -112,10 +111,8 @@ export default function Navigation() {
               </Link>
             ))}
             <div className="flex flex-col gap-2 pt-3">
-              <Button href="/contact" variant="secondary">
-                Visit campus
-              </Button>
-              <Button href="/admissions" variant="primary">
+              <LaunchButton />
+              <Button href="/admissions" variant="secondary">
                 Apply now
               </Button>
             </div>

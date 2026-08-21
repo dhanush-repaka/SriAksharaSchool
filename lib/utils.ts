@@ -1,27 +1,29 @@
 /**
- * Get the base path for assets (required for GitHub Pages)
- * This matches the basePath in next.config.js
+ * Asset prefix. Empty when the site is served from sriakshara.com.
+ * Set NEXT_PUBLIC_BASE_PATH only if you must host under a subpath.
  */
 export function getBasePath(): string {
-  return process.env.NEXT_PUBLIC_BASE_PATH || '/SriAksharaSchool'
+  return process.env.NEXT_PUBLIC_BASE_PATH || ''
 }
 
 /**
- * Add base path to an asset URL
- * Use this for images in inline styles or regular img tags
+ * Add base path to an asset URL.
+ * Use this for images in inline styles or regular img tags.
  */
 export function assetPath(path: string): string {
-  // If path already starts with basePath, return as-is
-  if (path.startsWith(getBasePath())) {
+  const base = getBasePath()
+
+  if (!base) {
+    return path.startsWith('/') ? path : `/${path}`
+  }
+
+  if (path.startsWith(base)) {
     return path
   }
-  
-  // If path starts with /, add basePath
-  if (path.startsWith('/')) {
-    return `${getBasePath()}${path}`
-  }
-  
-  // Otherwise, add basePath and /
-  return `${getBasePath()}/${path}`
-}
 
+  if (path.startsWith('/')) {
+    return `${base}${path}`
+  }
+
+  return `${base}/${path}`
+}

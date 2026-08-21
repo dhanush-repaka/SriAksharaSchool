@@ -23,14 +23,15 @@ const cormorant = Cormorant_Garamond({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://sriakshara.com'),
   title: {
     default: 'Sri Akshara School | A thoughtful education, since 1999',
     template: '%s | Sri Akshara School',
   },
   description:
-    'Sri Akshara School is a warm, academically strong community where children are known, challenged, and cared for. Visit campus and meet our faculty.',
+    'Sri Akshara School is a warm, academically strong community where children are known, challenged, and cared for. Visit campus, apply, or launch Learning Buddy.',
   keywords:
-    'Sri Akshara School, CBSE school, admissions, holistic education, parent school, campus tour',
+    'Sri Akshara School, sriakshara.com, Learning Buddy, admissions, holistic education, parent school, campus tour',
 }
 
 export default function RootLayout({

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Logo from '@/components/ui/Logo'
 import Icon from '@/components/ui/Icon'
+import LaunchButton from '@/components/ui/LaunchButton'
 
 const footerLinks = {
   school: [
@@ -100,6 +101,9 @@ export default function Footer() {
             <p className="mt-8 text-xs text-cream-200/50 leading-relaxed">
               Front office: Monday–Friday, 8:00 AM – 5:00 PM
             </p>
+            <div className="mt-6">
+              <LaunchButton className="px-5 py-2.5" />
+            </div>
           </div>
         </div>
 

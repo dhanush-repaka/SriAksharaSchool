@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import Button from '@/components/ui/Button'
+import LaunchButton from '@/components/ui/LaunchButton'
 import Photo from '@/components/ui/Photo'
 import { images } from '@/lib/images'
 
@@ -44,6 +45,7 @@ export default function Hero() {
             carries home.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
+            <LaunchButton />
             <Button href="/admissions" variant="primary">
               Start an application
             </Button>
