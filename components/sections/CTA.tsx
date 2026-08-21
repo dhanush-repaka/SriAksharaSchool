@@ -1,7 +1,7 @@
 'use client'
 
-import Link from 'next/link'
 import ScrollAnimation from '@/components/animations/ScrollAnimation'
+import Button from '@/components/ui/Button'
 
 interface CTAProps {
   title: string
@@ -23,28 +23,22 @@ export default function CTA({
   className = '',
 }: CTAProps) {
   return (
-    <section className={`py-20 lg:py-32 bg-primary-600 ${className}`}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className={`relative overflow-hidden bg-forest-900 py-16 lg:py-24 ${className}`}>
+      <div className="pointer-events-none absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_20%_20%,#d4ae72_0,transparent_32%),radial-gradient(circle_at_80%_80%,#3f6b54_0,transparent_40%)]" />
+      <div className="container-page relative">
         <ScrollAnimation animation="fadeUp">
-          <div className="max-w-4xl mx-auto text-center text-white">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">{title}</h2>
-            <p className="text-xl md:text-2xl text-primary-100 mb-10">
-              {description}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href={primaryCtaLink}
-                className="px-8 py-4 bg-white text-primary-600 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg"
-              >
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="eyebrow text-gold-300">We would be glad to meet you</p>
+            <h2 className="mt-4 font-serif text-display-sm text-cream-50">{title}</h2>
+            <p className="mx-auto mt-5 max-w-xl text-lg text-cream-200/80">{description}</p>
+            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Button href={primaryCtaLink} variant="gold">
                 {primaryCtaText}
-              </Link>
+              </Button>
               {secondaryCtaText && secondaryCtaLink && (
-                <Link
-                  href={secondaryCtaLink}
-                  className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-full font-semibold hover:bg-white/10 transition-colors"
-                >
+                <Button href={secondaryCtaLink} variant="ghost">
                   {secondaryCtaText}
-                </Link>
+                </Button>
               )}
             </div>
           </div>
@@ -53,4 +47,3 @@ export default function CTA({
     </section>
   )
 }
-

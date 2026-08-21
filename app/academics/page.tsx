@@ -1,132 +1,147 @@
-import Hero from '@/components/sections/Hero'
+import type { Metadata } from 'next'
 import SplitSection from '@/components/sections/SplitSection'
 import Cards from '@/components/sections/Cards'
 import CTA from '@/components/sections/CTA'
+import PageHeader from '@/components/sections/PageHeader'
+import SectionHeading from '@/components/ui/SectionHeading'
+import { images } from '@/lib/images'
+import type { IconName } from '@/components/ui/Icon'
+
+export const metadata: Metadata = {
+  title: 'Academics',
+  description:
+    'From early years through senior school, Sri Akshara offers a humane, rigorous curriculum and teachers who know each child.',
+}
+
+const programs: {
+  title: string
+  description: string
+  image: string
+  link: string
+  icon: IconName
+}[] = [
+  {
+    title: 'Early Years',
+    description:
+      'Ages 3–6. Play-based days, social grace, and the first sure steps into literacy and number.',
+    image: images.earlyYears,
+    link: '/academics#early-years',
+    icon: 'sun',
+  },
+  {
+    title: 'Primary School',
+    description:
+      'Grades 1–5. A balanced day of core subjects, arts, and outdoor play, with teachers who still sit on the carpet.',
+    image: images.primary,
+    link: '/academics#primary',
+    icon: 'book',
+  },
+  {
+    title: 'Middle School',
+    description:
+      'Grades 6–8. Harder questions, more independence, and adults who stay close while children try on bigger ideas.',
+    image: images.middle,
+    link: '/academics#middle',
+    icon: 'flask',
+  },
+  {
+    title: 'Senior School',
+    description:
+      'Grades 9–12. University-preparatory study, honest counselling, and the space to become a particular person.',
+    image: images.highSchool,
+    link: '/academics#high-school',
+    icon: 'graduation',
+  },
+]
+
+const subjects: { title: string; description: string; icon: IconName }[] = [
+  {
+    title: 'STEM',
+    description: 'Laboratories, coding, and mathematics taught as crafts—not as hurries toward a mark.',
+    icon: 'flask',
+  },
+  {
+    title: 'Arts & letters',
+    description: 'Literature, history, languages, music, and making. Beauty is part of a serious education.',
+    icon: 'palette',
+  },
+  {
+    title: 'Sport & wellbeing',
+    description: 'Fields, courts, and the habits of a healthy body. Every child plays; some compete.',
+    icon: 'trophy',
+  },
+  {
+    title: 'Digital fluency',
+    description: 'Tools used with judgement. Children learn to make with machines, not merely to consume them.',
+    icon: 'compass',
+  },
+]
 
 export default function Academics() {
-  const programs = [
-    {
-      title: 'Early Years',
-      description:
-        'A nurturing environment for ages 3-6, focusing on play-based learning, social skills, and foundational literacy.',
-      image: '/images/early-years.png',
-      link: '/academics#early-years',
-      icon: '🎨',
-    },
-    {
-      title: 'Primary School',
-      description:
-        'Grades 1-5 with a balanced curriculum emphasizing core subjects, arts, and physical education.',
-      image: '/images/primary.png',
-      link: '/academics#primary',
-      icon: '📚',
-    },
-    {
-      title: 'Middle School',
-      description:
-        'Grades 6-8 preparing students for higher education with advanced coursework and critical thinking.',
-      image: '/images/middle-school.png',
-      link: '/academics#middle',
-      icon: '🔬',
-    },
-    {
-      title: 'High School',
-      description:
-        'Grades 9-12 with college-preparatory programs, AP courses, and career guidance.',
-      image: '/images/high-school.png',
-      link: '/academics#high-school',
-      icon: '🎓',
-    },
-  ]
-
-  const subjects = [
-    {
-      title: 'STEM Programs',
-      description:
-        'Advanced science, technology, engineering, and mathematics courses with hands-on laboratories.',
-      icon: '🔬',
-    },
-    {
-      title: 'Arts & Humanities',
-      description:
-        'Comprehensive programs in literature, history, languages, and creative arts.',
-      icon: '🎭',
-    },
-    {
-      title: 'Physical Education',
-      description:
-        'Sports programs, fitness training, and wellness education for holistic development.',
-      icon: '⚽',
-    },
-    {
-      title: 'Technology Integration',
-      description:
-        'Modern computer labs, coding classes, and digital literacy programs.',
-      icon: '💻',
-    },
-  ]
-
   return (
     <main>
-      <Hero
-        title="Academics"
-        subtitle="Excellence in Learning"
-        description="A comprehensive curriculum designed to inspire, challenge, and prepare students for success"
-        backgroundImage="/images/academics-hero.png"
+      <PageHeader
+        eyebrow="Academics"
+        title="Learning that is both demanding and humane."
+        description="A curriculum with international reach and local roots—designed to stretch the mind without hurrying childhood away."
+        image={images.classroom}
+        imageAlt="A bright classroom at Sri Akshara"
       />
 
-      <section id="curriculum" className="py-20 lg:py-32 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Our Curriculum
-            </h2>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Our curriculum is designed to meet international standards while
-              maintaining cultural relevance. We focus on developing critical
-              thinking, creativity, and problem-solving skills through
-              inquiry-based learning and hands-on experiences.
-            </p>
-          </div>
+      <section id="curriculum" className="py-16 lg:py-24">
+        <div className="container-page">
+          <SectionHeading
+            eyebrow="The work of the day"
+            title="Our curriculum"
+            description="We teach for understanding. Inquiry, conversation, and practice sit together so that children can explain what they know—and remain curious about what they do not."
+            align="center"
+          />
         </div>
       </section>
 
-      <Cards cards={programs} columns={2} className="bg-gray-50" />
+      <div id="early-years" />
+      <div id="primary" />
+      <div id="middle" />
+      <div id="high-school" />
+      <Cards cards={programs} columns={2} className="bg-cream-50 pt-0" />
 
       <SplitSection
-        image="/images/teaching-method.png"
+        image={images.teaching}
         imagePosition="left"
-        title="Innovative Teaching Methods"
-        content="Our faculty employs a variety of teaching methodologies including project-based learning, collaborative activities, and technology-enhanced instruction. We believe in differentiated instruction that caters to diverse learning styles, ensuring every student can thrive. Regular assessments and feedback help students track their progress and set goals for improvement."
+        eyebrow="How we teach"
+        title="Method in the service of the child."
+        content="Project work, collaboration, and quiet independent study all have a place. We differentiate because children are not identical. Regular, humane assessment helps a student see the next step—not merely the last mark."
       />
 
-      <section id="programs" className="py-20 lg:py-32 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-12">
-            Academic Programs
-          </h2>
-          <Cards cards={subjects} columns={4} />
+      <section id="programs" className="py-8">
+        <div className="container-page pt-8">
+          <SectionHeading
+            eyebrow="Breadth with purpose"
+            title="Academic programmes"
+          />
         </div>
+        <Cards cards={subjects} columns={4} />
       </section>
 
       <SplitSection
-        image="/images/faculty.png"
+        image={images.faculty}
         imagePosition="right"
-        title="Expert Faculty"
-        content="Our teachers are highly qualified professionals with advanced degrees and years of experience. They participate in continuous professional development to stay current with educational best practices. Our low student-teacher ratio ensures personalized attention and support for each student's learning journey."
-        ctaText="Meet Our Faculty"
-        ctaLink="/academics#faculty"
+        eyebrow="Faculty"
+        title="Teachers who chose this work."
+        content="Our faculty hold advanced degrees and, more importantly, a vocation. Continuous professional learning keeps practice fresh. A low student–teacher ratio means a child is not a number on a register."
+        ctaText="Ask about our faculty"
+        ctaLink="/contact"
       />
+      <section id="faculty" className="sr-only" aria-hidden />
 
       <CTA
-        title="Ready to Start Your Academic Journey?"
-        description="Learn more about our programs and admission process."
-        primaryCtaText="Apply Now"
+        title="See a class in session."
+        description="The best way to understand our academics is to sit at the back of a room for twenty minutes. We can arrange that."
+        primaryCtaText="Apply now"
         primaryCtaLink="/admissions"
-        secondaryCtaText="Contact Us"
+        secondaryCtaText="Write to us"
         secondaryCtaLink="/contact"
       />
     </main>
   )
 }
-

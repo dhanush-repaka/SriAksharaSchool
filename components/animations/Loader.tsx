@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useEffect, useState } from 'react'
 
 export default function Loader() {
   const [isLoading, setIsLoading] = useState(true)
@@ -9,10 +9,7 @@ export default function Loader() {
 
   useEffect(() => {
     setMounted(true)
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 2000)
-
+    const timer = setTimeout(() => setIsLoading(false), 900)
     return () => clearTimeout(timer)
   }, [])
 
@@ -24,31 +21,24 @@ export default function Loader() {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-white"
+          transition={{ duration: 0.45 }}
+          className="fixed inset-0 z-[80] flex items-center justify-center bg-cream-100"
         >
           <div className="text-center">
-            <motion.div
-              className="w-16 h-16 border-4 border-primary-600 border-t-transparent rounded-full mx-auto mb-4"
-              animate={{ rotate: 360 }}
-              transition={{
-                duration: 1,
-                repeat: Infinity,
-                ease: 'linear',
-              }}
-            />
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl font-semibold text-gray-900"
-            >
-              Sri Akshara School
-            </motion.p>
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-gold-400 text-forest-800">
+              <svg viewBox="0 0 40 40" className="h-8 w-8" fill="none" aria-hidden>
+                <path
+                  d="M20 7c.4 4.2 2.4 7.4 6.2 9.6C22.4 18.8 20.4 22 20 26.2 19.6 22 17.6 18.8 13.8 16.6 17.6 14.4 19.6 11.2 20 7Z"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                />
+              </svg>
+            </div>
+            <p className="font-serif text-2xl text-ink">Sri Akshara</p>
+            <p className="mt-1 text-[10px] uppercase tracking-[0.22em] text-gold-600">School</p>
           </div>
         </motion.div>
       )}
     </AnimatePresence>
   )
 }
-

@@ -1,8 +1,37 @@
 'use client'
 
 import { useState } from 'react'
-import Hero from '@/components/sections/Hero'
+import Link from 'next/link'
+import PageHeader from '@/components/sections/PageHeader'
 import ScrollAnimation from '@/components/animations/ScrollAnimation'
+import Icon from '@/components/ui/Icon'
+import type { IconName } from '@/components/ui/Icon'
+import { images } from '@/lib/images'
+
+const contactInfo: { title: string; content: string; icon: IconName; href?: string }[] = [
+  {
+    title: 'Address',
+    content: '123 Education Street, Learning City, LC 12345',
+    icon: 'map',
+  },
+  {
+    title: 'Phone',
+    content: '+1 (555) 123-4567',
+    icon: 'phone',
+    href: 'tel:+15551234567',
+  },
+  {
+    title: 'Email',
+    content: 'info@sriaksharaschool.edu',
+    icon: 'mail',
+    href: 'mailto:info@sriaksharaschool.edu',
+  },
+  {
+    title: 'Office hours',
+    content: 'Monday – Friday, 8:00 AM – 5:00 PM',
+    icon: 'clock',
+  },
+]
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -12,149 +41,129 @@ export default function Contact() {
     subject: '',
     message: '',
   })
+  const [submitted, setSubmitted] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log('Form submitted:', formData)
-    alert('Thank you for your message! We will get back to you soon.')
+    setSubmitted(true)
     setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
   }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
+    setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  const contactInfo = [
-    {
-      title: 'Address',
-      content: '123 Education Street, Learning City, LC 12345',
-      icon: '📍',
-    },
-    {
-      title: 'Phone',
-      content: '+1 (555) 123-4567',
-      icon: '📞',
-    },
-    {
-      title: 'Email',
-      content: 'info@sriaksharaschool.edu',
-      icon: '✉️',
-    },
-    {
-      title: 'Office Hours',
-      content: 'Monday - Friday: 8:00 AM - 5:00 PM',
-      icon: '🕐',
-    },
-  ]
+  const fieldClass =
+    'w-full border border-forest-200 bg-cream-50 px-4 py-3 text-ink outline-none transition-colors focus:border-forest-600'
 
   return (
     <main>
-      <Hero
-        title="Contact Us"
-        subtitle="Get in Touch"
-        description="We're here to answer your questions and help you learn more about Sri Akshara School"
-        backgroundImage="/images/contact-hero.png"
+      <PageHeader
+        eyebrow="Contact"
+        title="A person will answer."
+        description="Admissions, a tour, or a question you have been carrying. Write, call, or come to the front office—we keep time for families."
+        image={images.campusTour}
+        imageAlt="The school entrance"
       />
 
-      <section className="py-20 lg:py-32 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* Contact Form */}
-            <ScrollAnimation animation="slideRight">
-              <div>
-                <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                  Send Us a Message
-                </h2>
-                <p className="text-gray-600 mb-8">
-                  Fill out the form below and we'll get back to you as soon as
-                  possible.
-                </p>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    >
-                      Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                    />
+      <section className="py-16 lg:py-24">
+        <div className="container-page">
+          <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
+            <ScrollAnimation animation="slideRight" className="lg:col-span-7">
+              <p className="eyebrow">Write to us</p>
+              <h2 className="mt-3 font-serif text-display-sm">Tell us a little, we will take it from there.</h2>
+              <p className="mt-4 mb-8 max-w-xl text-ink-muted">
+                We read every message. If you are enquiring about a place for your
+                child, mention the grade and the year you hope to join.
+              </p>
+
+              {submitted ? (
+                <div className="border border-forest-200 bg-forest-50 p-8">
+                  <p className="font-serif text-2xl text-forest-800">Thank you.</p>
+                  <p className="mt-2 text-ink-muted">
+                    We have your note. Someone from the school will be in touch
+                    within one school day.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setSubmitted(false)}
+                    className="mt-6 text-sm font-medium text-forest-700"
+                  >
+                    Send another message
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor="name" className="mb-2 block text-sm text-ink-muted">
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        required
+                        value={formData.name}
+                        onChange={handleChange}
+                        className={fieldClass}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="mb-2 block text-sm text-ink-muted">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
+                        className={fieldClass}
+                      />
+                    </div>
+                  </div>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor="phone" className="mb-2 block text-sm text-ink-muted">
+                        Phone
+                      </label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className={fieldClass}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="subject" className="mb-2 block text-sm text-ink-muted">
+                        How can we help?
+                      </label>
+                      <select
+                        id="subject"
+                        name="subject"
+                        required
+                        value={formData.subject}
+                        onChange={handleChange}
+                        className={fieldClass}
+                      >
+                        <option value="">Please choose</option>
+                        <option value="admissions">Admissions enquiry</option>
+                        <option value="tour">Campus tour</option>
+                        <option value="academics">Academic programmes</option>
+                        <option value="general">A general question</option>
+                        <option value="other">Something else</option>
+                      </select>
+                    </div>
                   </div>
                   <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    >
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="phone"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    >
-                      Phone
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="subject"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    >
-                      Subject *
-                    </label>
-                    <select
-                      id="subject"
-                      name="subject"
-                      required
-                      value={formData.subject}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                    >
-                      <option value="">Select a subject</option>
-                      <option value="admissions">Admissions Inquiry</option>
-                      <option value="academics">Academic Programs</option>
-                      <option value="facilities">Facilities Tour</option>
-                      <option value="general">General Inquiry</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-sm font-medium text-gray-700 mb-2"
-                    >
-                      Message *
+                    <label htmlFor="message" className="mb-2 block text-sm text-ink-muted">
+                      Message
                     </label>
                     <textarea
                       id="message"
@@ -163,107 +172,80 @@ export default function Contact() {
                       rows={6}
                       value={formData.message}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent"
+                      className={fieldClass}
                     />
                   </div>
                   <button
                     type="submit"
-                    className="w-full px-8 py-4 bg-primary-600 text-white rounded-full font-semibold hover:bg-primary-700 transition-colors"
+                    className="rounded-full bg-forest-700 px-8 py-3.5 text-sm font-medium text-cream-50 transition-colors hover:bg-forest-800"
                   >
-                    Send Message
+                    Send message
                   </button>
                 </form>
-              </div>
+              )}
             </ScrollAnimation>
 
-            {/* Contact Information */}
-            <ScrollAnimation animation="slideLeft">
-              <div>
-                <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                  Contact Information
-                </h2>
-                <p className="text-gray-600 mb-8">
-                  Reach out to us through any of these channels. We're always
-                  happy to help!
-                </p>
-                <div className="space-y-6 mb-8">
-                  {contactInfo.map((info, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start space-x-4 p-6 bg-gray-50 rounded-xl"
-                    >
-                      <div className="text-3xl flex-shrink-0">{info.icon}</div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900 mb-1">
-                          {info.title}
-                        </h3>
-                        <p className="text-gray-600">{info.content}</p>
-                      </div>
+            <ScrollAnimation animation="slideLeft" className="lg:col-span-5">
+              <div className="space-y-4">
+                {contactInfo.map((info) => (
+                  <div
+                    key={info.title}
+                    className="flex items-start gap-4 border border-forest-100 bg-cream-50 p-5"
+                  >
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gold-300/70 text-forest-700">
+                      <Icon name={info.icon} className="h-4 w-4" />
                     </div>
-                  ))}
-                </div>
-
-                {/* Map Placeholder */}
-                <div className="bg-gray-200 rounded-2xl aspect-video flex items-center justify-center">
-                  <div className="text-center text-gray-500">
-                    <div className="text-4xl mb-2">🗺️</div>
-                    <p>Interactive Map</p>
-                    <p className="text-sm">(Integration with Google Maps)</p>
+                    <div>
+                      <h3 className="text-sm uppercase tracking-[0.14em] text-ink-soft">
+                        {info.title}
+                      </h3>
+                      {info.href ? (
+                        <a href={info.href} className="mt-1 block text-ink hover:text-forest-700">
+                          {info.content}
+                        </a>
+                      ) : (
+                        <p className="mt-1 text-ink">{info.content}</p>
+                      )}
+                    </div>
                   </div>
-                </div>
+                ))}
+              </div>
+
+              <div className="mt-6 overflow-hidden border border-forest-100">
+                <iframe
+                  title="Map of Sri Akshara School"
+                  className="h-56 w-full grayscale"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  src="https://maps.google.com/maps?q=university%20campus&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                />
               </div>
             </ScrollAnimation>
           </div>
         </div>
       </section>
 
-      {/* Quick Links */}
-      <section className="py-20 lg:py-32 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
-            Quick Links
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <a
-              href="/admissions"
-              className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center"
-            >
-              <div className="text-4xl mb-4">📝</div>
-              <h3 className="font-semibold text-gray-900 mb-2">
-                Apply Now
-              </h3>
-              <p className="text-sm text-gray-600">
-                Start your admission process
-              </p>
-            </a>
-            <a
-              href="/facilities"
-              className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center"
-            >
-              <div className="text-4xl mb-4">🏫</div>
-              <h3 className="font-semibold text-gray-900 mb-2">
-                Schedule a Tour
-              </h3>
-              <p className="text-sm text-gray-600">
-                Visit our campus facilities
-              </p>
-            </a>
-            <a
-              href="/academics"
-              className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center"
-            >
-              <div className="text-4xl mb-4">📚</div>
-              <h3 className="font-semibold text-gray-900 mb-2">
-                View Programs
-              </h3>
-              <p className="text-sm text-gray-600">
-                Explore our academic offerings
-              </p>
-            </a>
+      <section className="border-t border-forest-100 bg-cream-50 py-16">
+        <div className="container-page">
+          <div className="grid gap-5 md:grid-cols-3">
+            {[
+              { href: '/admissions', title: 'Apply', note: 'Begin an application with a short conversation.', icon: 'clipboard' as IconName },
+              { href: '/facilities', title: 'Tour', note: 'See classrooms, fields, and the quiet of the library.', icon: 'home' as IconName },
+              { href: '/academics', title: 'Programmes', note: 'From early years through senior school.', icon: 'book' as IconName },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="group border border-forest-100 bg-cream-100 p-7 transition-shadow hover:shadow-soft"
+              >
+                <Icon name={item.icon} className="h-5 w-5 text-forest-700" />
+                <h3 className="mt-4 font-serif text-2xl group-hover:text-forest-700">{item.title}</h3>
+                <p className="mt-2 text-sm text-ink-muted">{item.note}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
     </main>
   )
 }
-

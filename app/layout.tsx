@@ -1,28 +1,36 @@
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Cormorant_Garamond, Outfit } from 'next/font/google'
 import './globals.css'
 import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider'
+import AnnouncementBar from '@/components/layout/AnnouncementBar'
 import Navigation from '@/components/layout/Navigation'
 import Footer from '@/components/layout/Footer'
 import PageTransition from '@/components/animations/PageTransition'
 import Loader from '@/components/animations/Loader'
 
-const inter = Inter({
+const outfit = Outfit({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-outfit',
   display: 'swap',
 })
 
-const playfair = Playfair_Display({
+const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  variable: '--font-playfair',
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-cormorant',
   display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: 'Sri Akshara School - Excellence in Education',
-  description: 'Sri Akshara School provides world-class education with a focus on holistic development and academic excellence.',
-  keywords: 'school, education, Sri Akshara, academics, admissions',
+  title: {
+    default: 'Sri Akshara School | A thoughtful education, since 1999',
+    template: '%s | Sri Akshara School',
+  },
+  description:
+    'Sri Akshara School is a warm, academically strong community where children are known, challenged, and cared for. Visit campus and meet our faculty.',
+  keywords:
+    'Sri Akshara School, CBSE school, admissions, holistic education, parent school, campus tour',
 }
 
 export default function RootLayout({
@@ -31,10 +39,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${outfit.variable} ${cormorant.variable}`}>
       <body>
         <Loader />
         <SmoothScrollProvider>
+          <AnnouncementBar />
           <Navigation />
           <PageTransition>
             {children}
@@ -45,4 +54,3 @@ export default function RootLayout({
     </html>
   )
 }
-

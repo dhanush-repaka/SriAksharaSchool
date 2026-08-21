@@ -9,34 +9,57 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
+        ink: {
+          DEFAULT: '#14241C',
+          muted: '#3D5248',
+          soft: '#5C6F66',
         },
-        accent: {
-          50: '#fdf4ff',
-          100: '#fae8ff',
-          200: '#f5d0fe',
-          300: '#f0abfc',
-          400: '#e879f9',
-          500: '#d946ef',
-          600: '#c026d3',
-          700: '#a21caf',
-          800: '#86198f',
-          900: '#701a75',
+        forest: {
+          50: '#F3F7F4',
+          100: '#E3EDE6',
+          200: '#C4D6CB',
+          300: '#9BB6A4',
+          400: '#6B917A',
+          500: '#3F6B54',
+          600: '#2F5543',
+          700: '#234236',
+          800: '#1A3229',
+          900: '#13241C',
+        },
+        gold: {
+          50: '#FBF6EE',
+          100: '#F3E6D0',
+          200: '#E6CBA0',
+          300: '#D4AE72',
+          400: '#C49654',
+          500: '#B07F3C',
+          600: '#8F652E',
+        },
+        cream: {
+          50: '#FDFBF7',
+          100: '#F7F2E9',
+          200: '#EFE6D6',
+          300: '#E2D4BC',
+        },
+        clay: {
+          DEFAULT: '#C26A4A',
+          soft: '#E8C4B4',
         },
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        serif: ['var(--font-playfair)', 'Georgia', 'serif'],
+        sans: ['var(--font-outfit)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-cormorant)', 'Georgia', 'serif'],
+      },
+      fontSize: {
+        display: ['clamp(2.75rem, 6vw, 5.25rem)', { lineHeight: '1.05', letterSpacing: '-0.02em' }],
+        'display-sm': ['clamp(2.25rem, 4.2vw, 3.75rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+      },
+      boxShadow: {
+        soft: '0 24px 60px -24px rgba(20, 36, 28, 0.18)',
+        lift: '0 18px 40px -20px rgba(20, 36, 28, 0.22)',
+      },
+      letterSpacing: {
+        widest: '0.22em',
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-in-out',
@@ -57,4 +80,3 @@ const config: Config = {
   plugins: [],
 }
 export default config
-
