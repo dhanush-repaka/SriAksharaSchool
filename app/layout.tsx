@@ -6,7 +6,6 @@ import AnnouncementBar from '@/components/layout/AnnouncementBar'
 import Navigation from '@/components/layout/Navigation'
 import Footer from '@/components/layout/Footer'
 import PageTransition from '@/components/animations/PageTransition'
-import Loader from '@/components/animations/Loader'
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -42,7 +41,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${outfit.variable} ${cormorant.variable}`}>
       <body>
-        <Loader />
         <SmoothScrollProvider>
           <AnnouncementBar />
           <Navigation />

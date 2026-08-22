@@ -33,12 +33,13 @@ export default function SmoothScrollProvider({
     // Make lenis available globally
     ;(window as any).lenis = lenis
 
+    let frame = 0
     function raf(time: number) {
       lenis.raf(time)
-      requestAnimationFrame(raf)
+      frame = requestAnimationFrame(raf)
     }
 
-    requestAnimationFrame(raf)
+    frame = requestAnimationFrame(raf)
 
     // Integrate with GSAP ScrollTrigger
     lenis.on('scroll', () => {
@@ -56,6 +57,7 @@ export default function SmoothScrollProvider({
     window.addEventListener('resize', handleResize)
 
     return () => {
+      cancelAnimationFrame(frame)
       lenis.destroy()
       window.removeEventListener('resize', handleResize)
       ;(window as any).lenis = null
