@@ -1,5 +1,6 @@
 name: Deploy to GitHub Pages
 
+# The live site is built from main. There is no second “website branch”.
 on:
   push:
     branches:
@@ -8,13 +9,15 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,9 +35,9 @@ jobs:
       - name: Build
         run: npm run build
 
-      # Publishes the built `out/` folder to the `gh-pages` branch.
-      # In the repo: Settings → Pages → Deploy from a branch → gh-pages / (root)
-      - name: Publish gh-pages
+      # Temporary: keep the existing Pages source (gh-pages branch) in sync
+      # until Settings → Pages → Source is switched to “GitHub Actions”.
+      - name: Publish gh-pages (legacy)
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -43,3 +46,22 @@ jobs:
           force_orphan: true
           user_name: github-actions[bot]
           user_email: github-actions[bot]@users.noreply.github.com
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    # Succeeds once Pages source is “GitHub Actions”. Until then this
+    # job may fail while the legacy gh-pages publish above still updates the site.
+    continue-on-error: true
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

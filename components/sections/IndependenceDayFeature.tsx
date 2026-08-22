@@ -18,7 +18,7 @@ export default function IndependenceDayFeature() {
                 <div className="relative aspect-square overflow-hidden bg-cream-100 shadow-soft">
                   <Image
                     src={images.independenceDay2026}
-                    alt="Sri Akshara School Independence Day Celebrations 2026 — 80th Independence Day"
+                    alt="Photo collage of students and staff at Sri Akshara School celebrating the 80th Independence Day in 2026"
                     fill
                     className="object-contain"
                     sizes="(max-width: 1024px) 100vw, 50vw"

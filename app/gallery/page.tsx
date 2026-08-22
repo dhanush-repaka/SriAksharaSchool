@@ -47,7 +47,7 @@ export default function Gallery() {
                 <div className="relative aspect-square bg-cream-100 sm:aspect-auto sm:min-h-[22rem]">
                   <Image
                     src={images.independenceDay2026}
-                    alt="Sri Akshara School Independence Day Celebrations 2026 — 80th Independence Day"
+                    alt="Photo collage of students and staff at Sri Akshara School celebrating the 80th Independence Day in 2026"
                     fill
                     className="object-contain p-4 transition-transform duration-700 group-hover:scale-[1.02]"
                     sizes="(max-width: 768px) 100vw, 50vw"
