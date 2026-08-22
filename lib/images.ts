@@ -58,11 +58,11 @@ export const images = {
     'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1400&q=80',
   books:
     'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1400&q=80',
-  independenceDay2026: '/images/independence-day-2026.png',
+  independenceDay2026: '/images/independence-day-celebrations-2026.jpg',
   gallery: [
     {
-      src: '/images/independence-day-2026.png',
-      alt: 'Sri Akshara School Independence Day Celebrations 2026 — 80th Independence Day',
+      src: '/images/independence-day-celebrations-2026.jpg',
+      alt: 'Photo collage of students and staff at Sri Akshara School celebrating the 80th Independence Day in 2026',
       category: 'Events',
     },
     {
