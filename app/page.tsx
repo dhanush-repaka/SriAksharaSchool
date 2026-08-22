@@ -8,6 +8,7 @@ import ParentPromise from '@/components/sections/ParentPromise'
 import Cards from '@/components/sections/Cards'
 import SectionHeading from '@/components/ui/SectionHeading'
 import LearningBuddyLaunch from '@/components/sections/LearningBuddyLaunch'
+import IndependenceDayFeature from '@/components/sections/IndependenceDayFeature'
 import { images } from '@/lib/images'
 
 const programmes = [
@@ -43,6 +44,8 @@ export default function Home() {
       <Hero />
 
       <LearningBuddyLaunch />
+
+      <IndependenceDayFeature />
 
       <StatsSection />
 

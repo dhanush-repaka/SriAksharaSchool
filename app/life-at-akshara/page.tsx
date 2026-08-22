@@ -4,6 +4,7 @@ import Cards from '@/components/sections/Cards'
 import CTA from '@/components/sections/CTA'
 import PageHeader from '@/components/sections/PageHeader'
 import SectionHeading from '@/components/ui/SectionHeading'
+import IndependenceDayFeature from '@/components/sections/IndependenceDayFeature'
 import { images } from '@/lib/images'
 import type { IconName } from '@/components/ui/Icon'
 
@@ -99,6 +100,8 @@ export default function LifeAtAkshara() {
         title="Work and play, kept in proportion."
         content="We teach time, not merely timetable. Children learn to finish work, keep a promise to a team, and still have an hour left for a book or a friend. That balance is the culture, not a poster."
       />
+
+      <IndependenceDayFeature />
 
       <section className="py-8">
         <div className="container-page pt-8">
