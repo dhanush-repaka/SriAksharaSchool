@@ -20,120 +20,52 @@ export default function ScrollAnimation({
   children,
   animation = 'fadeUp',
   delay = 0,
-  duration = 1,
+  duration = 0.8,
   className = '',
 }: ScrollAnimationProps) {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (typeof window === 'undefined') return
-    if (!ref.current) return
-
     const element = ref.current
-    let animationConfig: gsap.core.Tween | null = null
-    let scrollTrigger: ScrollTrigger | null = null
+    if (!element || typeof window === 'undefined') return
 
-    const setupAnimation = () => {
-      switch (animation) {
-        case 'fadeUp':
-          gsap.set(element, { opacity: 0, y: 60 })
-          animationConfig = gsap.to(element, {
-            opacity: 1,
-            y: 0,
-            duration,
-            delay,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: element,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
-            },
-          })
-          scrollTrigger = animationConfig.scrollTrigger || null
-          break
-
-        case 'slideLeft':
-          gsap.set(element, { opacity: 0, x: -60 })
-          animationConfig = gsap.to(element, {
-            opacity: 1,
-            x: 0,
-            duration,
-            delay,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: element,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
-            },
-          })
-          scrollTrigger = animationConfig.scrollTrigger || null
-          break
-
-        case 'slideRight':
-          gsap.set(element, { opacity: 0, x: 60 })
-          animationConfig = gsap.to(element, {
-            opacity: 1,
-            x: 0,
-            duration,
-            delay,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: element,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
-            },
-          })
-          scrollTrigger = animationConfig.scrollTrigger || null
-          break
-
-        case 'fadeIn':
-          gsap.set(element, { opacity: 0 })
-          animationConfig = gsap.to(element, {
-            opacity: 1,
-            duration,
-            delay,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: element,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
-            },
-          })
-          scrollTrigger = animationConfig.scrollTrigger || null
-          break
-
-        case 'parallax':
-          animationConfig = gsap.to(element, {
-            yPercent: -50,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: element,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: true,
-            },
-          })
-          scrollTrigger = animationConfig.scrollTrigger || null
-          break
-
-        default:
-          break
-      }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return
     }
 
-    // Small delay to ensure DOM is ready
-    const timeoutId = setTimeout(() => {
-      setupAnimation()
-    }, 100)
+    const fromVars: gsap.TweenVars =
+      animation === 'slideLeft'
+        ? { opacity: 0.001, x: -40 }
+        : animation === 'slideRight'
+          ? { opacity: 0.001, x: 40 }
+          : animation === 'fadeIn'
+            ? { opacity: 0.001 }
+            : animation === 'parallax'
+              ? { yPercent: 8 }
+              : { opacity: 0.001, y: 36 }
+
+    const tween = gsap.from(element, {
+      ...fromVars,
+      duration,
+      delay,
+      ease: 'power3.out',
+      immediateRender: false,
+      scrollTrigger: {
+        trigger: element,
+        start: 'top 92%',
+        once: true,
+      },
+    })
+
+    const fallback = window.setTimeout(() => {
+      gsap.set(element, { clearProps: 'all' })
+    }, 2500)
 
     return () => {
-      clearTimeout(timeoutId)
-      if (scrollTrigger) {
-        scrollTrigger.kill()
-      }
-      if (animationConfig) {
-        animationConfig.kill()
-      }
+      window.clearTimeout(fallback)
+      tween.scrollTrigger?.kill()
+      tween.kill()
+      gsap.set(element, { clearProps: 'all' })
     }
   }, [animation, delay, duration])
 
@@ -143,4 +75,3 @@ export default function ScrollAnimation({
     </div>
   )
 }
-

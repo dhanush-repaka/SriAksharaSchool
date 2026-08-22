@@ -1,40 +1,15 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
 import Button from '@/components/ui/Button'
 import LaunchButton from '@/components/ui/LaunchButton'
 import Photo from '@/components/ui/Photo'
 import { images } from '@/lib/images'
 
 export default function Hero() {
-  const rootRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    if (!rootRef.current) return
-    const ctx = gsap.context(() => {
-      gsap.from('[data-hero-copy] > *', {
-        opacity: 0,
-        y: 28,
-        duration: 0.85,
-        stagger: 0.12,
-        ease: 'power3.out',
-      })
-      gsap.from('[data-hero-art]', {
-        opacity: 0,
-        x: 30,
-        duration: 1.1,
-        delay: 0.2,
-        ease: 'power3.out',
-      })
-    }, rootRef)
-    return () => ctx.revert()
-  }, [])
-
   return (
-    <section ref={rootRef} className="relative overflow-hidden pb-10 pt-8 lg:pb-20 lg:pt-12">
+    <section className="relative overflow-hidden pb-10 pt-8 lg:pb-20 lg:pt-12">
       <div className="container-page grid items-center gap-12 lg:grid-cols-12">
-        <div data-hero-copy className="lg:col-span-6 xl:col-span-6">
+        <div className="lg:col-span-6 xl:col-span-6">
           <p className="eyebrow">A school for childhood, and for character</p>
           <h1 className="mt-5 font-serif text-display text-ink">
             Where children are known, challenged, and kindly held.
@@ -53,7 +28,7 @@ export default function Hero() {
               Schedule a campus visit
             </Button>
           </div>
-          <dl className="mt-12 grid grid-cols-3 gap-6 border-t border-forest-100 pt-8 max-w-lg">
+          <dl className="mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-forest-100 pt-8">
             {[
               { value: '1999', label: 'Founded' },
               { value: '1 : 12', label: 'Teacher ratio' },
@@ -69,12 +44,12 @@ export default function Hero() {
           </dl>
         </div>
 
-        <div data-hero-art className="relative lg:col-span-6">
+        <div className="relative lg:col-span-6">
           <div className="relative mx-auto max-w-lg lg:max-w-none">
             <Photo
               src={images.heroCampus}
               alt="Sri Akshara School campus buildings and lawns"
-              className="aspect-[4/5] sm:aspect-[5/6] lg:aspect-[4/5] shadow-soft"
+              className="aspect-[4/5] shadow-soft sm:aspect-[5/6] lg:aspect-[4/5]"
               priority
             />
             <div className="absolute -left-4 bottom-10 hidden w-44 overflow-hidden border-[6px] border-cream-100 shadow-lift sm:block lg:-left-10 lg:w-56">
