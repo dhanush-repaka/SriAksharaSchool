@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import PageHeader from '@/components/sections/PageHeader'
 import ScrollAnimation from '@/components/animations/ScrollAnimation'
 import Icon from '@/components/ui/Icon'
@@ -12,13 +13,18 @@ const categories = ['All', 'Events', 'Academics', 'Sports', 'Arts', 'Facilities'
 export default function Gallery() {
   const [active, setActive] = useState<(typeof categories)[number]>('All')
 
-  const visible = useMemo(
-    () =>
+  const visible = useMemo(() => {
+    const items =
       active === 'All'
-        ? images.gallery
-        : images.gallery.filter((item) => item.category === active),
-    [active]
-  )
+        ? [...images.gallery]
+        : images.gallery.filter((item) => item.category === active)
+
+    if (active === 'All' || active === 'Events') {
+      return items.filter((item) => item.src !== images.independenceDay2026)
+    }
+
+    return items
+  }, [active])
 
   return (
     <main>
@@ -32,6 +38,39 @@ export default function Gallery() {
 
       <section className="py-16 lg:py-24">
         <div className="container-page">
+          {(active === 'All' || active === 'Events') && (
+            <ScrollAnimation animation="fadeUp">
+              <Link
+                href="/independence-day-2026"
+                className="group mb-12 grid overflow-hidden border border-forest-100 bg-cream-50 sm:grid-cols-2"
+              >
+                <div className="relative aspect-square bg-cream-100 sm:aspect-auto sm:min-h-[22rem]">
+                  <Image
+                    src={images.independenceDay2026}
+                    alt="Sri Akshara School Independence Day Celebrations 2026 — 80th Independence Day"
+                    fill
+                    className="object-contain p-4 transition-transform duration-700 group-hover:scale-[1.02]"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
+                  />
+                </div>
+                <div className="flex flex-col justify-center p-8 lg:p-12">
+                  <p className="eyebrow">Featured · 15 August 2026</p>
+                  <h2 className="mt-4 font-serif text-3xl lg:text-4xl">
+                    Independence Day celebrations 2026
+                  </h2>
+                  <p className="mt-4 leading-relaxed text-ink-muted">
+                    The 80th Independence Day on campus—assembly, patriotic
+                    programmes, and the flag.
+                  </p>
+                  <p className="mt-6 text-sm font-medium text-forest-700">
+                    See the celebration →
+                  </p>
+                </div>
+              </Link>
+            </ScrollAnimation>
+          )}
+
           <div className="flex flex-wrap justify-center gap-2 mb-12">
             {categories.map((category) => (
               <button
